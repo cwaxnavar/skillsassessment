@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MovieManager.Models;
 
-namespace MovieManager.Views
+namespace MovieManager.Controllers
 {
     public class MoviesController : Controller
     {
@@ -82,7 +82,7 @@ namespace MovieManager.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId,Title,DirectorId")] Movie movie)
+        public ActionResult Edit([Bind(Include = "MovieId,Title,YearReleased,DirectorId")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace MovieManager.Views
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorId", "FullName", movie.DirectorId);
+            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorId", "FirstName", movie.DirectorId);
             return View(movie);
         }
 
